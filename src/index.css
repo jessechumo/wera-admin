@@ -1,0 +1,264 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0A0B0F;
+  --color-surface: #12141A;
+  --color-surface-2: #1A1D25;
+  --color-border: #262A35;
+  --color-text: #E8EAF0;
+  --color-muted: #8A90A2;
+  --color-faint: #5B6173;
+
+  --color-accent: #FF7A59;
+  --color-accent-2: #7C9CFF;
+
+  --color-good: #3DDC97;
+  --color-warn: #F5C451;
+  --color-bad: #FF5C7A;
+
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", monospace;
+
+  /* Chart and decoration tokens (not Tailwind utilities). */
+  --color-grid: rgb(255 255 255 / 0.045);
+  --color-cursor: rgb(255 255 255 / 0.06);
+  --color-series-dim: #41537A;
+  --color-glow: rgb(255 122 89 / 0.06);
+  --color-shimmer: rgb(255 255 255 / 0.04);
+
+  --radius-card: 14px;
+}
+
+/* Light theme: a warm paper background, white cards lifted by soft
+   shadows rather than hard outlines, and the same hues as dark mode toned
+   down (less saturated, slightly deeper) so nothing glares on white. The
+   attribute is set before first paint by the script in index.html. */
+:root[data-theme="light"] {
+  --color-bg: #F7F6F2;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #F1F0EB;
+  --color-border: #E5E3DC;
+  --color-text: #1D1F24;
+  --color-muted: #5F6470;
+  --color-faint: #8E929C;
+
+  --color-accent: #D9653F;
+  --color-accent-2: #4A63C8;
+
+  --color-good: #1E8A5F;
+  --color-warn: #9C6B14;
+  --color-bad: #C2445A;
+
+  --color-grid: rgb(29 31 36 / 0.06);
+  --color-cursor: rgb(29 31 36 / 0.05);
+  --color-series-dim: #B4C0E6;
+  --color-glow: rgb(217 101 63 / 0.06);
+  --color-shimmer: rgb(29 31 36 / 0.045);
+  --shadow-card: 0 1px 2px rgb(29 31 36 / 0.04), 0 2px 8px -2px rgb(29 31 36 / 0.06);
+  --shadow-card-hover: 0 2px 4px rgb(29 31 36 / 0.05), 0 12px 24px -10px rgb(29 31 36 / 0.14);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  html[data-theme="light"] {
+    color-scheme: light;
+  }
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Subtle ember glow behind the top of every page. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(700px 340px at 50% -80px, var(--color-glow), transparent 70%);
+  }
+  #root {
+    position: relative;
+  }
+  .font-mono {
+    font-variant-numeric: tabular-nums;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 30%, transparent);
+  }
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-surface-2);
+    border: 2px solid var(--color-bg);
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@utility skeleton {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--color-surface-2);
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, var(--color-shimmer), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+}
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+/* Cards: soft shadow in light mode, a gentle lift on hover everywhere. */
+.rounded-card,
+.rounded-xl {
+  box-shadow: var(--shadow-card, none);
+  transition:
+    box-shadow 200ms ease,
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 150ms ease;
+}
+.cursor-pointer.rounded-card:hover,
+a.rounded-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card-hover, 0 10px 30px -12px rgb(0 0 0 / 0.5));
+}
+button:not(:disabled):active,
+a.inline-flex:active {
+  transform: scale(0.98);
+}
+
+/* Theme switch: a circular reveal (View Transitions), or a short color
+   crossfade where that API is missing. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  z-index: 1;
+}
+.theme-fade,
+.theme-fade *,
+.theme-fade *::before,
+.theme-fade *::after {
+  transition:
+    background-color 350ms ease,
+    border-color 350ms ease,
+    color 350ms ease,
+    fill 350ms ease,
+    stroke 350ms ease !important;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.drawer-enter {
+  /* Decelerate curve so the panel feels like it settles, not slides. */
+  animation: drawer-in 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.modal-enter {
+  animation: modal-in 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fade-enter {
+  animation: fade-in 150ms ease-out;
+}
+.route-enter {
+  animation: rise-in 200ms ease-out;
+}
+/* Staggered card/row entrance; pair with an inline animationDelay. */
+.anim-rise {
+  animation: rise-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* A target jumped to from the resume review. */
+@keyframes resume-flash { 0%, 60% { box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 45%, transparent); } 100% { box-shadow: 0 0 0 3px transparent; } }
+.resume-flash { animation: resume-flash 1.6s ease-out; border-radius: 0.5rem; }
+
+/* ---- Landing page ---------------------------------------------------- */
+/* The spotlight radius animates (registered so it can transition). */
+@property --reveal-r {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+.reveal-field {
+  --reveal-x: 50%;
+  --reveal-y: 40%;
+  transition: --reveal-r 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal-field.is-active { --reveal-r: 240px; }
+/* Two masks, intersected: the spotlight, and the keep-clear map drawn by
+   RevealField (soft halos around the text in front, so it stays readable). */
+.reveal-words {
+  --spotlight: radial-gradient(circle var(--reveal-r) at var(--reveal-x) var(--reveal-y), #000 0%, rgb(0 0 0 / 0.55) 45%, transparent 100%);
+  -webkit-mask-image: var(--spotlight), var(--keep-clear, linear-gradient(#000, #000));
+  mask-image: var(--spotlight), var(--keep-clear, linear-gradient(#000, #000));
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+@keyframes drift-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes drift-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+.drift-left { animation: drift-left var(--drift, 90s) linear infinite; }
+.drift-right { animation: drift-right var(--drift, 90s) linear infinite; }
+@keyframes float-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.float-y { animation: float-y 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .drift-left, .drift-right, .float-y { animation: none; }
+  .reveal-field { transition: none; }
+}
+
+/* Tracker empty state: a card drifting from Saved toward Applied. */
+@keyframes tracker-slide { 0%, 15% { transform: translateX(0); } 55%, 85% { transform: translateX(26px); } 100% { transform: translateX(0); } }
+.tracker-slide { animation: tracker-slide 4.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .tracker-slide { animation: none; } }

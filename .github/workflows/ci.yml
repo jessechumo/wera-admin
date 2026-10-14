@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, types, unit tests, build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # publishes the coverage badge on main
+    env:
+      MIN_COVERAGE: "70"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Types
+        run: npm run typecheck
+      - name: Unit and component tests with coverage
+        run: npm run coverage
+      - name: Coverage gate
+        run: |
+          pct=$(node -p "require('./coverage/coverage-summary.json').total.statements.pct")
+          echo "Coverage: ${pct}% of statements" | tee -a "$GITHUB_STEP_SUMMARY"
+          echo "COVERAGE=${pct}" >> "$GITHUB_ENV"
+          node -e "process.exit(${pct} < ${MIN_COVERAGE} ? 1 : 0)" \
+            || { echo "::error::coverage ${pct}% is below ${MIN_COVERAGE}%"; exit 1; }
+      - name: Build
+        run: APP_COMMIT="${GITHUB_SHA}" npm run build
+      - name: Audit dependencies
+        run: npm audit --omit=dev --audit-level=moderate
+      - name: Publish coverage badge
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./scripts/publish-badge.sh coverage "${COVERAGE}%" "$COVERAGE"
+
+  docker:
+    name: Docker build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build --build-arg APP_COMMIT="${GITHUB_SHA}" -t wera-admin:ci .
