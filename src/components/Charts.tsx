@@ -72,7 +72,7 @@ export function NewJobsChart({ data }: { data: DayCount[] }) {
   return (
     <div className="h-56 w-full">
       <ResponsiveContainer>
-        <BarChart data={data} margin={{ top: 8, right: 8, left: -18, bottom: 0 }}>
+        <BarChart data={data} margin={{ top: 8, right: 8, left: -8, bottom: 0 }}>
           <CartesianGrid stroke="var(--color-grid)" vertical={false} />
           <XAxis
             dataKey="day"
@@ -82,7 +82,7 @@ export function NewJobsChart({ data }: { data: DayCount[] }) {
             axisLine={false}
             minTickGap={16}
           />
-          <YAxis tick={AXIS_TICK} tickLine={false} axisLine={false} width={44} tickFormatter={(v: number) => compact(v)} allowDecimals={false} />
+          <YAxis tick={AXIS_TICK} tickLine={false} axisLine={false} width={56} tickFormatter={(v: number) => compact(v)} allowDecimals={false} />
           <Tooltip
             cursor={{ fill: 'var(--color-cursor)' }}
             content={<ChartTip format={(v) => String(v)} />}
