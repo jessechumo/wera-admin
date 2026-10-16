@@ -10,7 +10,8 @@ import { compact, money, pct } from '../lib/format';
 export default function UsagePage() {
   const usage = useUsage();
   const t = usage.data?.totals;
-  const perDay = usage.data?.per_day ?? [];
+  // Oldest day first, so the charts and the sparkline read left to right.
+  const perDay = [...(usage.data?.per_day ?? [])].sort((a, b) => a.day.localeCompare(b.day));
   const users = [...(usage.data?.users ?? [])].sort((a, b) => b.month_spend_usd - a.month_spend_usd);
   const spark = perDay.map((d) => d.cost_usd);
   return (
