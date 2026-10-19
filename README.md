@@ -12,7 +12,7 @@ The user dashboard ([Wera-Frontend](https://github.com/jessechumo/Wera-Frontend)
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/architecture-dark.svg">
-  <img alt="Wera Admin architecture: your browser reaches wera-admin over an SSH tunnel or the home network; it proxies to the API admin routes, which require an admin session and record every change in an audit log" src="docs/architecture.svg">
+  <img alt="Wera Admin architecture: your browser reaches wera-admin (nginx on 127.0.0.1, no public port) through an SSH tunnel; it calls the API admin routes, which check the admin role on every call; PostgreSQL records every change in an audit log" src="docs/architecture.svg">
 </picture>
 
 ## What it does
