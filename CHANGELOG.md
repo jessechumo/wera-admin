@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.1](https://github.com/jessechumo/wera-admin/compare/wera-admin-v0.2.0...wera-admin-v0.2.1) (2026-10-19)
+
+
+### Documentation
+
+* add a contributing guide and editorconfig ([c2ec05a](https://github.com/jessechumo/wera-admin/commit/c2ec05a053be6bd8b1ca65987e68f8b71dc76155))
+* **diagrams:** redraw the architecture diagrams in Excalidraw ([9deae9b](https://github.com/jessechumo/wera-admin/commit/9deae9bc7036a7a6c28115c09b6ad903ca5a2222))
+* redraw architecture diagrams with logos and legends ([c7de3a2](https://github.com/jessechumo/wera-admin/commit/c7de3a2d07a5daf258f6ccbb1300a9002083c93d))
+* redraw architecture diagrams with logos and legends ([8a8e57d](https://github.com/jessechumo/wera-admin/commit/8a8e57d51e0dc4c9c4b38ba86a1a7c1ec4b4ee52))
+
 ## [0.2.0](https://github.com/jessechumo/wera-admin/compare/wera-admin-v0.1.0...wera-admin-v0.2.0) (2026-10-17)
 
 
