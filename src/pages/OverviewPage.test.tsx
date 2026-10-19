@@ -41,7 +41,7 @@ describe('OverviewPage', () => {
     stubApi();
     renderAdmin();
     await screen.findByRole('heading', { name: 'Overview' });
-    await userEvent.click(screen.getAllByRole('link', { name: 'Audit log' })[0]!);
+    await userEvent.click(screen.getAllByRole('link', { name: 'Audit log' })[0]);
     expect(await screen.findByRole('heading', { name: 'Audit log' })).toBeInTheDocument();
   });
 });

@@ -2,7 +2,7 @@ import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { me, stubApi, user } from '../test/fixtures';
-import { jsonResponse, renderAdmin } from '../test/render';
+import { jsonResponse, renderAdmin, jsonBody } from '../test/render';
 
 describe('UsersPage', () => {
   it('searches and filters accounts', async () => {
@@ -23,7 +23,7 @@ describe('UsersPage', () => {
     let patched: Record<string, unknown> = {};
     stubApi({
       'PATCH /api/admin/users/2': (init) => {
-        patched = JSON.parse(String(init?.body));
+        patched = jsonBody(init);
         return user({ monthly_budget_usd: 25, is_admin: true });
       },
     });
@@ -54,7 +54,7 @@ describe('UsersPage', () => {
     let deleted = '';
     stubApi({
       'POST /api/admin/users/2/sign-out': () => ({ ended: 3 }),
-      'DELETE /api/admin/users/2': (init) => ((deleted = JSON.parse(String(init?.body)).confirm_email), undefined),
+      'DELETE /api/admin/users/2': (init) => ((deleted = jsonBody<{ confirm_email: string }>(init).confirm_email), undefined),
     });
     renderAdmin('/users');
     await userEvent.click(await screen.findByText('Ada'));
