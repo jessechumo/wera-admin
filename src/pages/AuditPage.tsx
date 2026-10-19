@@ -20,7 +20,7 @@ function detailText(e: AuditEntry): string {
   const d = e.detail ?? {};
   return Object.entries(d)
     .filter(([, v]) => v != null)
-    .map(([k, v]) => `${k.replace(/_/g, ' ')}: ${typeof v === 'object' ? JSON.stringify(v) : String(v)}`)
+    .map(([k, v]) => `${k.replace(/_/g, ' ')}: ${typeof v === 'object' ? JSON.stringify(v) : String(v as string | number | boolean)}`)
     .join(' · ');
 }
 

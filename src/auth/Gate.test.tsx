@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { me, stubApi } from '../test/fixtures';
-import { jsonResponse, renderAdmin } from '../test/render';
+import { jsonResponse, renderAdmin, jsonBody } from '../test/render';
 
 describe('Gate', () => {
   it('signs an admin in and opens the overview', async () => {
@@ -11,7 +11,7 @@ describe('Gate', () => {
     stubApi({
       'GET /api/auth/me': () => (signedIn ? { user: me } : jsonResponse(401, { error: 'not signed in' })),
       'POST /api/auth/login': (init) => {
-        sent = JSON.parse(String(init?.body));
+        sent = jsonBody(init);
         signedIn = true;
         return { user: me };
       },

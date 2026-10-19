@@ -161,7 +161,7 @@ export function useAudit() {
     queryFn: ({ pageParam }) =>
       api<{ entries: AuditEntry[] }>(`/api/admin/audit?limit=${AUDIT_PAGE}${pageParam ? `&before=${pageParam}` : ''}`),
     initialPageParam: 0,
-    getNextPageParam: (last) => (last.entries.length === AUDIT_PAGE ? last.entries[last.entries.length - 1]!.id : undefined),
+    getNextPageParam: (last) => (last.entries.length === AUDIT_PAGE ? last.entries[last.entries.length - 1].id : undefined),
   });
 }
 

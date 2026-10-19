@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { audit, company, content, run, stubApi } from '../test/fixtures';
-import { renderAdmin } from '../test/render';
+import { renderAdmin, jsonBody } from '../test/render';
 
 describe('RunsPage', () => {
   it("lists runs and shows a failed run's error", async () => {
@@ -41,7 +41,7 @@ describe('CompaniesPage', () => {
 describe('ContentPage', () => {
   it('shows hidden content with the moderation reason, and publishes it', async () => {
     let set: Record<string, string> = {};
-    stubApi({ 'PUT /api/admin/content/post/5/status': (init) => ((set = JSON.parse(String(init?.body))), undefined) });
+    stubApi({ 'PUT /api/admin/content/post/5/status': (init) => ((set = jsonBody(init)), undefined) });
     renderAdmin('/content');
     expect(await screen.findByText('How I got my offer')).toBeInTheDocument();
     expect(screen.getByText(/Looks like an advert\. \(spam\)/)).toBeInTheDocument();
@@ -74,7 +74,7 @@ describe('EmailPage', () => {
         templates: ['verify', 'digest'],
         outbox: [{ id: 1, to: 'ada@example.com', tag: 'digest', subject: 'Your matches', status: 'failed', attempts: 3, last_error: '550 mailbox full', created_at: '2026-10-13T00:00:00Z', sent_at: null }],
       }),
-      'POST /api/admin/email/test': (init) => ((to = JSON.parse(String(init?.body)).to), { queued_to: 'me@example.com' }),
+      'POST /api/admin/email/test': (init) => ((to = jsonBody<{ to: string }>(init).to), { queued_to: 'me@example.com' }),
     });
     renderAdmin('/email');
     expect(await screen.findByTitle('Confirm email email preview')).toHaveAttribute('src', '/api/admin/email/preview/verify');
