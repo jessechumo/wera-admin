@@ -10,6 +10,11 @@ The admin console for a [Wera](https://github.com/jessechumo/Wera) server. Admin
 
 The user dashboard ([Wera-Frontend](https://github.com/jessechumo/Wera-Frontend)) has no admin features of its own.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/architecture-dark.svg">
+  <img alt="Wera Admin architecture: your browser reaches wera-admin over an SSH tunnel or the home network; it proxies to the API admin routes, which require an admin session and record every change in an audit log" src="docs/architecture.svg">
+</picture>
+
 ## What it does
 
 - **Overview:** users (with a profile, active this week, new), open jobs and new ones in the last 24 hours, matches waiting for a score, AI spend against the monthly cap, the last pipeline run, email status, and a **Needs attention** list (a failed run, companies whose fetch failed, content hidden by moderation, failed email, spend near the cap) that links to each fix. Refreshes every 30 seconds.
