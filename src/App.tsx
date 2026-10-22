@@ -1,21 +1,21 @@
-import { lazy } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { Gate } from './auth/Gate';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Shell } from './layout/Shell';
+import { lazyPage } from './lib/lazyPage';
 import { createQueryClient } from './lib/queryClient';
 import { Toasts } from './lib/toast';
 import OverviewPage from './pages/OverviewPage';
 import UsersPage from './pages/UsersPage';
 
 // Charts (recharts) load with the pages that draw them.
-const RunsPage = lazy(() => import('./pages/RunsPage'));
-const UsagePage = lazy(() => import('./pages/UsagePage'));
-const CompaniesPage = lazy(() => import('./pages/CompaniesPage'));
-const ContentPage = lazy(() => import('./pages/ContentPage'));
-const EmailPage = lazy(() => import('./pages/EmailPage'));
-const AuditPage = lazy(() => import('./pages/AuditPage'));
+const RunsPage = lazyPage(() => import('./pages/RunsPage'));
+const UsagePage = lazyPage(() => import('./pages/UsagePage'));
+const CompaniesPage = lazyPage(() => import('./pages/CompaniesPage'));
+const ContentPage = lazyPage(() => import('./pages/ContentPage'));
+const EmailPage = lazyPage(() => import('./pages/EmailPage'));
+const AuditPage = lazyPage(() => import('./pages/AuditPage'));
 
 /** The routes, for the app and for tests (which bring their own router). */
 export function AdminRoutes() {
