@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.2](https://github.com/jessechumo/wera-admin/compare/wera-admin-v0.2.1...wera-admin-v0.2.2) (2026-10-22)
+
+
+### Bug Fixes
+
+* recover when a deploy replaces a page's code ([633ac73](https://github.com/jessechumo/wera-admin/commit/633ac730195d8d734fc88a92f09ed11f88bc86ab))
+* recover when a deploy replaces a page's code ([51844a0](https://github.com/jessechumo/wera-admin/commit/51844a06baa00aeed77834ed53d5f32a05873308))
+
 ## [0.2.1](https://github.com/jessechumo/wera-admin/compare/wera-admin-v0.2.0...wera-admin-v0.2.1) (2026-10-19)
 
 
