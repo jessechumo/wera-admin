@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.3](https://github.com/jessechumo/wera-admin/compare/wera-admin-v0.2.2...wera-admin-v0.2.3) (2026-10-24)
+
+
+### Bug Fixes
+
+* **api:** say the server is not answering instead of showing a proxy's error page ([#24](https://github.com/jessechumo/wera-admin/issues/24)) ([02702df](https://github.com/jessechumo/wera-admin/commit/02702dfdbf8c8e92fc6dc69e8c59d63bc9b554fd))
+* **deps:** bump the production group with 2 updates ([#18](https://github.com/jessechumo/wera-admin/issues/18)) ([9b49c6c](https://github.com/jessechumo/wera-admin/commit/9b49c6c695da7a1f3c7f45fb0d1e750b727e991e))
+
 ## [0.2.2](https://github.com/jessechumo/wera-admin/compare/wera-admin-v0.2.1...wera-admin-v0.2.2) (2026-10-22)
 
 
