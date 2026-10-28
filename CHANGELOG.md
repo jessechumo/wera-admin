@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/jessechumo/wera-admin/compare/wera-admin-v0.2.3...wera-admin-v0.2.4) (2026-10-28)
+
+
+### Bug Fixes
+
+* **deps:** bump the production group with 2 updates ([#27](https://github.com/jessechumo/wera-admin/issues/27)) ([efa95ce](https://github.com/jessechumo/wera-admin/commit/efa95ce68e8cc61141adacf25de19b13a0b172e6))
+
 ## [0.2.3](https://github.com/jessechumo/wera-admin/compare/wera-admin-v0.2.2...wera-admin-v0.2.3) (2026-10-24)
 
 
