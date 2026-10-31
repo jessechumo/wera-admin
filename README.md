@@ -26,7 +26,7 @@ The user dashboard ([Wera-Frontend](https://github.com/jessechumo/Wera-Frontend)
 - **Email:** whether sending is on, a preview of every template (HTML or text, desktop or phone width), a test send, and the outbox with failures.
 - **Audit log:** who changed which account, moderated what, started a run or sent a test, and when.
 
-Light and dark themes, a phone layout, and charts that load only with the pages that draw them.
+Light and dark themes, a phone layout, and charts that load only with the pages that draw them. The console is made to be left open: it refreshes by itself, keeps what it shows when the API stops answering, and recovers without a click.
 
 ## Run it
 
@@ -53,14 +53,14 @@ npm run lint && npm run typecheck && npm test   # coverage: npm run coverage
 
 The Docker image is nginx serving the built app and proxying `/api` to `wera-api:8080` on the Compose network. The Wera API repository's `docker-compose.yml` runs it as `wera-admin` on port 3001 next to the dashboard (`../wera-admin` beside `../wera`).
 
-nginx answers **private networks only** (the home LAN, the host, Docker's bridge). Keep it that way: the admin console is not meant to be published through the public tunnel.
+nginx answers **private networks only** (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 and the host itself). Keep it that way: the admin console is not meant to be published through the public tunnel.
 
 Signing in here and on the dashboard share the API's session cookie when both are served from the same host, so signing out of one signs out of the other.
 
 ## Stack
 
-React 18, TypeScript (strict), Vite, Tailwind CSS 4, TanStack Query, React Router, Recharts; Vitest and Testing Library for tests. The design tokens, logo and theme match the dashboard.
+React 19, TypeScript 6 (strict), Vite 8, Tailwind CSS 4, TanStack Query, React Router, Recharts; Vitest and Testing Library for tests. The design tokens, logo and theme match the dashboard.
 
 ## Commits and releases
 
-Every commit is a [Conventional Commit](https://www.conventionalcommits.org) (`feat:`, `fix:`, `chore:`…), checked on pull requests. Work lands on `dev`; release-please keeps a release PR open on `main`, and merging it tags the release and publishes `ghcr.io/jessechumo/wera-admin`.
+Every commit is a [Conventional Commit](https://www.conventionalcommits.org) (`feat:`, `fix:`, `chore:`…), checked on pull requests. Work lands on `dev`; release-please keeps a release PR open on `main`, and merging it tags `wera-admin-vX.Y.Z` and publishes `ghcr.io/jessechumo/wera-admin`.
