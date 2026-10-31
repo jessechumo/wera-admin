@@ -22,7 +22,7 @@ export default function RunsPage() {
       <PageHeader title="Runs" hint="Each run fetches every company, filters new jobs for every user, and scores the ones that pass." actions={<RunNowButton />} />
       {runs.isLoading ? (
         <Skeleton className="h-64 w-full" />
-      ) : runs.error ? (
+      ) : runs.isLoadingError ? (
         <ErrorState message={errorMessage(runs.error)} onRetry={() => void runs.refetch()} />
       ) : !list.length ? (
         <EmptyState title="No runs yet" hint="Start one with Run now, or wait for the schedule." />

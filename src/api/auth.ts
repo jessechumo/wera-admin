@@ -16,6 +16,7 @@ export function useMe() {
     },
     staleTime: 5 * 60_000,
     retry: false,
+    refetchInterval: (query) => (query.state.status === 'error' ? 10_000 : false), // a server coming back fires no event
   });
 }
 

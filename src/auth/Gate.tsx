@@ -22,7 +22,8 @@ export function Gate({ children }: { children: ReactNode }) {
   }, [qc]);
 
   if (me.isLoading) return <div className="p-8"><Skeleton className="h-40 w-full" /></div>;
-  if (me.error) return <div className="p-8"><ErrorState message="The Wera API did not answer." onRetry={() => void me.refetch()} /></div>;
+  // A session known from before stays on screen through a failed check.
+  if (me.data === undefined) return <div className="p-8"><ErrorState message="The Wera API did not answer. Retrying by itself." onRetry={() => void me.refetch()} /></div>;
   if (!me.data) return <LoginPage />;
   if (!me.data.is_admin) {
     return (
