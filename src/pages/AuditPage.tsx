@@ -33,7 +33,7 @@ export default function AuditPage() {
       <PageHeader title="Audit log" hint="Every change made in this console is recorded here, and cannot be edited." />
       {q.isLoading ? (
         <SkeletonRows rows={5} />
-      ) : q.error ? (
+      ) : q.isLoadingError ? (
         <ErrorState message={errorMessage(q.error)} onRetry={() => void q.refetch()} />
       ) : !entries.length ? (
         <EmptyState title="No admin changes yet" hint="Changes to accounts, moderation and runs will show up here." />

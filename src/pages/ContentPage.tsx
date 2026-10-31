@@ -88,7 +88,7 @@ export default function ContentPage() {
       </div>
       {q.isLoading ? (
         <SkeletonRows rows={4} />
-      ) : q.error ? (
+      ) : q.isLoadingError ? (
         <ErrorState message={errorMessage(q.error)} onRetry={() => void q.refetch()} />
       ) : !items.length ? (
         <EmptyState title={filter.status === 'rejected' ? 'Nothing is hidden' : 'Nothing here'} hint="Posts and comments show up here as people write them." />

@@ -87,7 +87,7 @@ export default function EmailPage() {
     <div className="space-y-4">
       <PageHeader title="Email" hint="Sign-up confirmations, password resets, welcome mail and match digests."
         actions={cfg?.enabled && <TestForm />} />
-      {q.error ? (
+      {q.isLoadingError ? (
         <ErrorState message={errorMessage(q.error)} onRetry={() => void q.refetch()} />
       ) : (
         <>
