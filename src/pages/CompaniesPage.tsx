@@ -39,7 +39,7 @@ export default function CompaniesPage() {
       </div>
       {companies.isLoading ? (
         <Skeleton className="h-64 w-full" />
-      ) : companies.error ? (
+      ) : companies.isLoadingError ? (
         <ErrorState message={errorMessage(companies.error)} onRetry={() => void companies.refetch()} />
       ) : (
         <Card>

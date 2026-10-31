@@ -66,7 +66,7 @@ export default function UsersPage() {
       </div>
       {users.isLoading ? (
         <Skeleton className="h-64 w-full" />
-      ) : users.error ? (
+      ) : users.isLoadingError ? (
         <ErrorState message={errorMessage(users.error)} onRetry={() => void users.refetch()} />
       ) : !rows.length ? (
         <EmptyState title="No users match" hint="Try another search or filter." />

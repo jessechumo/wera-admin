@@ -17,7 +17,7 @@ export default function UsagePage() {
   return (
     <div className="space-y-4">
       <PageHeader title="AI usage" hint="Tokens and cost of scoring, letters, resumes and drafts. Cached input is billed at a fraction of the price." />
-      {usage.error ? (
+      {usage.isLoadingError ? (
         <ErrorState message={errorMessage(usage.error)} onRetry={() => void usage.refetch()} />
       ) : (
         <>
