@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.5](https://github.com/jessechumo/wera-admin/compare/wera-admin-v0.2.4...wera-admin-v0.2.5) (2026-10-31)
+
+
+### Bug Fixes
+
+* **admin:** release staying open through a failed check ([473f4cc](https://github.com/jessechumo/wera-admin/commit/473f4cccfa1c07251d5de03963e47e00b0bd79fc))
+* **admin:** stay open through a failed check and recover by itself ([2630c10](https://github.com/jessechumo/wera-admin/commit/2630c108288a7253b4f4c545a428ef3f81aa2dd7))
+
+
+### Documentation
+
+* **readme:** correct the stack, the networks nginx allows and the tags ([1efe26c](https://github.com/jessechumo/wera-admin/commit/1efe26ca09ba5e32cc475bfa9f63664909129aac))
+
 ## [0.2.4](https://github.com/jessechumo/wera-admin/compare/wera-admin-v0.2.3...wera-admin-v0.2.4) (2026-10-28)
 
 
